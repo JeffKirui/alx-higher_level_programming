@@ -2,24 +2,25 @@
 # 100-my_calculator.py
 
 if __name__ == "__main__":
-    import sys
     from calculator_1 import add, div, sub, mul
-    if len(sys.argv) != 4:
+    from sys import argv, exit
+
+    if len(argv) != 4:
         print("Usage: ./100-my_calculator.py <a> <operator> <b>")
-        sys.exit(1)
-    n1, op, n2 = int(sys.argv[1]), sys.argv[2], int(sys.argv[3])
+        exit(1)
 
-    def error(n, nn):
+    operations = {
+            "+": add,
+            "-": sub,
+            "*": mul,
+            "/": div
+    }
+
+    if argv[2] not in list(operations.keys()):
         print("Unknown operator. Available operators: +, -, * and /")
-        sys.exit(1)
+        exit(1)
 
-    def switch(op):
-        switcher = {
-                "+": add,
-                "-": sub,
-                "*": mul,
-                "/": div,
-                }
-        return switcher.get(op, error)
-    r = switch(op)(n1, n2)
-    print(f"{n1} {op} {n2} = {r}")
+    # If the validations are OK, call the print function
+    a = int(argv[1])
+    b = int(argv[3])
+    print("{} {} {} = {}".format(a, argv[2], b, operations[argv[2]](a, b)))
