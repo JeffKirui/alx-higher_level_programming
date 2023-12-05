@@ -1,29 +1,24 @@
 #!/usr/bin/python3
-"""
-Module of Student
-"""
+""" student module, creates a class student """
 
 
 class Student:
-    """
-    Student class
-    """
+    """ Class Student """
 
     def __init__(self, first_name, last_name, age):
-        """init function """
+        """ Initiliazes the instance """
         self.first_name = first_name
         self.last_name = last_name
         self.age = age
 
     def to_json(self, attrs=None):
-        """
-        to_json method of Student
-        """
-        dic = {}
-        if type(attrs) is not list:
-            return(self.__dict__)
-        else:
-            for i in attrs:
-                if i in self.__dict__:
-                    dic[i] = self.__dict__[i]
-            return(dic)
+        """ Returns a json about the class """
+        a_dict = dict()
+        if type(attrs) is list:
+            for attr in attrs:
+                if type(attr) is not str:
+                    return self.__dict__
+                if attr in self.__dict__:
+                    a_dict.update({attr: self.__dict__[attr]})
+            return a_dict
+        return self.__dict__
